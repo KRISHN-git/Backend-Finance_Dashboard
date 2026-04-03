@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { generateToken } = require('../utils/jwt');
 const { successResponse, errorResponse } = require('../utils/response');
+const catchAsync = require('../utils/catchAsync');
 
 exports.register = async (req, res) => {
   try {
@@ -46,3 +47,7 @@ exports.login = async (req, res) => {
     return errorResponse(res, 500, 'Server error.', error.message);
   }
 };
+
+exports.getMe = catchAsync(async (req, res) => {
+  return successResponse(res, 200, 'Profile fetched.', req.user);
+});

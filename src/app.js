@@ -30,4 +30,13 @@ app.use((err, req, res, next) => {
 
 app.use('/api/users', require('./routes/userRoutes'));
 
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { success: false, message: 'Too many requests, please try again later.' }
+});
+
+app.use('/api/', limiter);
 module.exports = app;
