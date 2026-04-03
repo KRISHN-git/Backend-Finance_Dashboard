@@ -27,4 +27,7 @@ app.use((err, req, res, next) => {
     message: err.message || 'Internal Server Error',
   });
 });
+
+app.use('/api/users', require('./routes/userRoutes'));
+
 module.exports = app;
