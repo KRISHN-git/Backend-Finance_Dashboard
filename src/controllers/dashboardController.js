@@ -68,3 +68,15 @@ exports.getMonthlyTrends = async (req, res) => {
     return errorResponse(res, 500, 'Server error.', error.message);
   }
 };
+
+exports.getRecentActivity = async (req, res) => {
+  try {
+    const records = await FinancialRecord.find({ isDeleted: false })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .populate('createdBy', 'name email');
+    return successResponse(res, 200, 'Recent activity fetched.', records);
+  } catch (error) {
+    return errorResponse(res, 500, 'Server error.', error.message);
+  }
+};

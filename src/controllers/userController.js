@@ -24,3 +24,13 @@ exports.updateUserRole = async (req, res) => {
     return errorResponse(res, 500, 'Server error.', error.message);
   }
 };
+
+exports.deactivateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, { isActive: false }, { new: true });
+    if (!user) return errorResponse(res, 404, 'User not found.');
+    return successResponse(res, 200, 'User deactivated.', user);
+  } catch (error) {
+    return errorResponse(res, 500, 'Server error.', error.message);
+  }
+};

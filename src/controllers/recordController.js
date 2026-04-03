@@ -78,3 +78,13 @@ exports.deleteRecord = async (req, res) => {
     return errorResponse(res, 500, "Server error.", error.message);
   }
 };
+
+exports.getRecord = async (req, res) => {
+  try {
+    const record = await FinancialRecord.findOne({ _id: req.params.id, isDeleted: false });
+    if (!record) return errorResponse(res, 404, 'Record not found.');
+    return successResponse(res, 200, 'Record fetched.', record);
+  } catch (error) {
+    return errorResponse(res, 500, 'Server error.', error.message);
+  }
+};

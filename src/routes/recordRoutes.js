@@ -7,5 +7,6 @@ router.get('/',    protect, authorize('viewer', 'analyst', 'admin'), ctrl.getRec
 router.post('/',   protect, authorize('admin'), ctrl.createRecord);
 router.put('/:id', protect, authorize('admin'), ctrl.updateRecord);
 router.delete('/:id', protect, authorize('admin'), ctrl.deleteRecord);
+router.get('/:id', protect, authorize('viewer','analyst','admin'), ctrl.getRecord);
 
 module.exports = router;
